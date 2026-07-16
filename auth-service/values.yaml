@@ -3,10 +3,10 @@ namespace: klikgo
 replicaCount: 3
 
 image:
-  repository: auth_serice
+  repository: auth_service
   tag: latest
 
-  pullPolicy: IfNotPresent
+  pullPolicy: Never
 
 service:
   type: ClusterIP
