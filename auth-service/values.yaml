@@ -6,7 +6,7 @@ image:
   repository: auth_serice
   tag: latest
 
-  pullPolicy: Never
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
