@@ -1,0 +1,51 @@
+namespace: klikgo
+
+replicaCount: 3
+
+image:
+  repository: auth_serice
+  tag: latest
+
+  pullPolicy: Never
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+config:
+  APP_NAME: "Auth Service"
+  APP_VERSION: "1.0.0"
+  API_PREFIX: "/api/v1"
+  HOST: "0.0.0.0"
+  PORT: "8000"
+  DATABASE_NAME: "ecommerce_db"
+  JWT_ALGORITHM: "HS256"
+  JWT_ISSUER: "auth-service"
+  ACCESS_TOKEN_EXPIRE_MINUTES: "60"
+
+secret:
+  MONGO_URI: "mongodb://root:root123@mongodb:27017/ecommerce_db?authSource=admin"
+  JWT_SECRET_KEY: "Satish7"
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+readinessProbe:
+  path: /health
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+livenessProbe:
+  path: /health
+  initialDelaySeconds: 40
+  periodSeconds: 20
+  timeoutSeconds: 3
+  failureThreshold: 3
